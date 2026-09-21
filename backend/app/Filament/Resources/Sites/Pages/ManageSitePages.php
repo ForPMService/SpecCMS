@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Sites\Pages;
 
 use App\Filament\Resources\Sites\SiteResource;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\ManageRelatedRecords;
@@ -31,6 +32,14 @@ class ManageSitePages extends ManageRelatedRecords
         return $table
             ->columns([
                 TextColumn::make('name'),
+            ])
+            ->recordActions([
+                Action::make('editVisual')
+                    ->label('Редактировать визуально')
+                    ->url(fn ($record): string => route('editor.context', [
+                        'site' => $this->getOwnerRecord(),
+                        'page' => $record,
+                    ])),
             ])
             ->headerActions([
                 CreateAction::make(),
