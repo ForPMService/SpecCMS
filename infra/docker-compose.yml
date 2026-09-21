@@ -2,17 +2,27 @@ name: speccms
 
 services:
   php:
-     build:
-       context: ./php
-       dockerfile: Dockerfile
-     working_dir: /workspace/backend
-     volumes:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    working_dir: /workspace/backend
+    volumes:
       - type: bind
         source: ..
         target: /workspace
-     ports:
+    ports:
       - "8000:8000"
-     command:
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB:-speccms}
+      DB_USERNAME: ${POSTGRES_USER:-speccms}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-speccms_dev}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command:
       - php
       - artisan
       - serve
@@ -25,6 +35,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-speccms}
       POSTGRES_USER: ${POSTGRES_USER:-speccms}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-speccms_dev}
+    ports:
+      - "5433:5432"
     volumes:
       - speccms_pgdata:/var/lib/postgresql
     healthcheck:
@@ -36,7 +48,7 @@ services:
 
   node:
     image: node:24.21.0-bookworm-slim
-    working_dir: /workspace
+    working_dir: /workspace/editor/Silex/integration
     volumes:
       - type: bind
         source: ..
