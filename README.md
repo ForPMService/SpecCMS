@@ -40,6 +40,10 @@ docker compose -f infra/docker-compose.yml exec php php artisan migrate
 
 При последующих запусках достаточно выполнить `.\infra\up.ps1`.
 
+Рабочая база PostgreSQL: `speccms`.
+
+Тестовая база PostgreSQL: `speccms_testing`. `.\infra\up.ps1` обеспечивает её наличие.
+
 Для остановки используйте `.\infra\down.ps1`.
 
 Каталоги `vendor`, `node_modules` и локальный `.env` в Git не хранятся.
@@ -68,6 +72,8 @@ docker compose -f infra/docker-compose.yml exec php php artisan make:filament-us
 cd infra
 docker compose exec php composer check
 ```
+
+Эта команда запускает PHPUnit против `speccms_testing`.
 
 ## Проверка TypeScript
 
