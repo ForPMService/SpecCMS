@@ -24,6 +24,32 @@
 .\infra\down.ps1
 ```
 
+## Первый запуск после клонирования
+
+Для чистого клона на Windows с установленными Docker Desktop и Git выполните:
+
+```bash
+Copy-Item backend/.env.example backend/.env
+docker compose -f infra/docker-compose.yml build
+docker compose -f infra/docker-compose.yml run --rm php composer install
+docker compose -f infra/docker-compose.yml run --rm php php artisan key:generate
+docker compose -f infra/docker-compose.yml run --rm node npm ci
+.\infra\up.ps1
+docker compose -f infra/docker-compose.yml exec php php artisan migrate
+```
+
+При последующих запусках достаточно выполнить `.\infra\up.ps1`.
+
+Для остановки используйте `.\infra\down.ps1`.
+
+Каталоги `vendor`, `node_modules` и локальный `.env` в Git не хранятся.
+
+Первый пользователь Filament создаётся отдельно:
+
+```bash
+docker compose -f infra/docker-compose.yml exec php php artisan make:filament-user
+```
+
 ## Основные версии
 
 * PHP 8.4.25
