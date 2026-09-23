@@ -84,6 +84,9 @@ dist/
 /storage/exports/*
 !/storage/exports/.gitkeep
 
+/storage/editor/*
+!/storage/editor/.gitkeep
+
 # --- Misc local tooling ---
 *.swp
 *.swo

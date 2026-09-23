@@ -68,6 +68,7 @@ services:
       SILEX_FS_HOSTING_ROOT: /data/hosting
     volumes:
       - speccms_silex_data:/data
+      - ../storage/editor:/data/storage
 
   nginx:
     image: nginx:1.30.5-alpine3.24
