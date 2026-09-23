@@ -66,9 +66,11 @@ services:
       HOSTING_CONNECTORS: fs,download
       SILEX_FS_ROOT: /data/storage
       SILEX_FS_HOSTING_ROOT: /data/hosting
+      SILEX_CLIENT_CONFIG: /speccms/silex-client-config.js
     volumes:
       - speccms_silex_data:/data
       - ../storage/editor:/data/storage
+      - ../editor/Silex/integration/silex-client-config.js:/speccms/silex-client-config.js:ro
 
   nginx:
     image: nginx:1.30.5-alpine3.24
