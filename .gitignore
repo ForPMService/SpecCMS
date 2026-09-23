@@ -76,16 +76,16 @@ dist/
 # --- Project runtime/generated CMS storage ---
 # Keep directories via .gitkeep when they are created later.
 /storage/assets/*
-!/storage/assets/.gitkeep
+
 
 /storage/artifacts/*
-!/storage/artifacts/.gitkeep
+
 
 /storage/exports/*
-!/storage/exports/.gitkeep
+
 
 /storage/editor/*
-!/storage/editor/.gitkeep
+
 
 # --- Misc local tooling ---
 *.swp
